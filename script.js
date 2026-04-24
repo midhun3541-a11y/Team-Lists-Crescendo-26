@@ -235,9 +235,8 @@ function applyRenderedTeam(rendered) {
 
 function renderTeam(teamName, immediate = false) {
   const rendered = buildTeamRender(teamName);
-  const isMobile = window.innerWidth <= 768;
 
-  if (!window.gsap || immediate || isMobile) {
+  if (!window.gsap || immediate) {
     applyRenderedTeam(rendered);
     // Clear any inline styles GSAP may have left
     [batchGrid, selectedTeam].forEach(el => {
@@ -326,9 +325,7 @@ function openBatch(card, button) {
   button.setAttribute("aria-expanded", "true");
   button.querySelector(".batch-icon").textContent = "-";
 
-  const isMobile = window.innerWidth <= 768;
-  if (!window.gsap || isMobile) {
-    if (window.gsap) gsap.set([list, students], { clearProps: "all" });
+  if (!window.gsap) {
     return;
   }
 
@@ -367,10 +364,8 @@ function closeBatch(card, button) {
   button.setAttribute("aria-expanded", "false");
   button.querySelector(".batch-icon").textContent = "+";
 
-  const isMobile = window.innerWidth <= 768;
-  if (!window.gsap || isMobile) {
+  if (!window.gsap) {
     card.classList.remove("is-open");
-    if (window.gsap) gsap.set([list, students], { clearProps: "all" });
     return;
   }
 

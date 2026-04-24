@@ -458,11 +458,6 @@ h1 {
 
 .batch-card.is-open .student-list {
   padding: 14px 18px 18px;
-  max-height: none; /* Let CSS handle expansion when GSAP is bypassed */
-}
-
-.batch-card.is-open .student {
-  opacity: 1;
 }
 
 .student {
