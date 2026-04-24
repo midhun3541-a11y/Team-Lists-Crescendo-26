@@ -449,7 +449,7 @@ h1 {
    ============================================================ */
 .student-list {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   max-height: 0;
   overflow: hidden;
@@ -458,6 +458,11 @@ h1 {
 
 .batch-card.is-open .student-list {
   padding: 14px 18px 18px;
+  max-height: none; /* Let CSS handle expansion when GSAP is bypassed */
+}
+
+.batch-card.is-open .student {
+  opacity: 1;
 }
 
 .student {
@@ -537,29 +542,24 @@ h1 {
     align-items: start;
   }
 
-  /* Team panel → horizontal scroll strip */
+  /* Team panel → vertical stacked list */
   .team-panel {
     position: static;
-    padding: 12px;
+    padding: 16px;
     border-radius: var(--radius-lg);
     min-height: auto;
     width: 100%;
   }
 
   .team-list {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
   }
-  .team-list::-webkit-scrollbar { display: none; }
 
   .team-button {
-    min-width: 150px;
+    width: 100%;
     min-height: 52px;
-    flex-shrink: 0;
   }
 
   .details-panel {
@@ -594,8 +594,12 @@ h1 {
 
   .details-header h2 { font-size: 1.3rem; }
 
+  .team-list {
+    grid-template-columns: 1fr;
+  }
+
   .team-button {
-    min-width: 130px;
+    width: 100%;
   }
 
   .student-list {
