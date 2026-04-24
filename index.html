@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crescendo 26 Team List</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-scene" aria-hidden="true">
+    <div class="bg-orb bg-orb--one"></div>
+    <div class="bg-orb bg-orb--two"></div>
+    <div class="bg-orb bg-orb--three"></div>
+    <div class="bg-grid"></div>
+  </div>
+  <main class="app-shell">
+    <section class="topbar" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Crescendo '26 · Troizeantz</p>
+        <h1 id="page-title">Team List</h1>
+      </div>
+    </section>
+
+    <section class="workspace" aria-label="Interactive team browser">
+      <aside class="team-panel">
+        <div class="panel-heading">
+          <span>Teams</span>
+        </div>
+        <div class="team-list" id="team-list"></div>
+      </aside>
+
+      <section class="details-panel">
+        <div class="details-header">
+          <div class="team-identity">
+            <div class="logo-stack">
+              <p class="eyebrow">House</p>
+              <span id="team-logo-slot"></span>
+            </div>
+            <h2 id="selected-team">Select a Team</h2>
+          </div>
+        </div>
+        <div class="batch-grid" id="batch-grid"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
