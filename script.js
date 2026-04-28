@@ -476,3 +476,110 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTeams();
   renderTeam(teamData[0]?.team, true);
 });
+
+// ============================================================
+// SEARCH FUNCTIONALITY
+// ============================================================
+const searchInput = document.getElementById('global-search');
+const searchResults = document.getElementById('search-results');
+
+function performSearch(query) {
+  if (!query) {
+    searchResults.classList.remove('is-active');
+    return;
+  }
+  
+  query = query.toLowerCase();
+  const results = [];
+  
+  teamData.forEach(team => {
+    team.batches.forEach(batch => {
+      batch.students.forEach(student => {
+        const studentName = formatStudentLabel(student);
+        if (studentName.toLowerCase().includes(query)) {
+          results.push({
+            name: studentName,
+            team: team.team,
+            batch: batch.year
+          });
+        }
+      });
+    });
+  });
+  
+  if (results.length === 0) {
+    searchResults.innerHTML = '<div class="empty-state" style="padding: 16px;">No members found</div>';
+  } else {
+    searchResults.innerHTML = results.slice(0, 15).map(res => {
+      const theme = themes[res.team] || themes.Stark;
+      return `
+        <button class="search-result-item" data-team="${res.team}" data-batch="${res.batch}" data-name="${escapeHtml(res.name)}">
+          <span class="search-result-name">${escapeHtml(res.name)}</span>
+          <span class="search-result-team" style="color: ${theme.strong}">${escapeHtml(res.team)} • ${escapeHtml(res.batch)} Batch</span>
+        </button>
+      `;
+    }).join('');
+  }
+  
+  searchResults.classList.add('is-active');
+}
+
+searchInput.addEventListener('input', (e) => {
+  performSearch(e.target.value.trim());
+});
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-wrapper')) {
+    searchResults.classList.remove('is-active');
+  }
+});
+
+searchResults.addEventListener('click', (e) => {
+  const item = e.target.closest('.search-result-item');
+  if (item) {
+    const teamName = item.dataset.team;
+    const batchYear = item.dataset.batch;
+    const studentName = item.dataset.name;
+    
+    // Check if team is already selected, if not render it
+    const currentlyActiveTeam = document.querySelector('.team-button.is-active');
+    if (!currentlyActiveTeam || currentlyActiveTeam.dataset.team !== teamName) {
+      renderTeam(teamName);
+    }
+    
+    // Add a slight delay to allow rendering and GSAP to settle
+    setTimeout(() => {
+      const batchCards = document.querySelectorAll('.batch-card');
+      batchCards.forEach(card => {
+        const title = card.querySelector('.batch-title').textContent;
+        if (title.includes(batchYear)) {
+          const btn = card.querySelector('.batch-toggle');
+          if (!card.classList.contains('is-open')) {
+            openBatch(card, btn);
+          }
+          
+          // Wait for batch to open, then highlight the student
+          setTimeout(() => {
+            const students = card.querySelectorAll('.student');
+            students.forEach(s => {
+              if (s.textContent === studentName) {
+                s.classList.add('is-highlighted');
+                
+                // Scroll into view gently
+                s.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Optional: remove highlight after a few seconds
+                setTimeout(() => {
+                  s.classList.remove('is-highlighted');
+                }, 2500);
+              }
+            });
+          }, 350); // Delay for GSAP batch open animation
+        }
+      });
+    }, 150); // Delay for GSAP team render animation
+
+    searchResults.classList.remove('is-active');
+    searchInput.value = '';
+  }
+});
