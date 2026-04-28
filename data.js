@@ -1,4 +1,4 @@
-﻿window.TEAM_DATA = [
+window.TEAM_DATA = [
   {
     "team": "Stark",
     "batches": [
@@ -426,7 +426,8 @@
           "KARTHIGA",
           "KAVIYAPRIYA",
           "POOJABHARATHI",
-          "THEVADHARSHINI"
+          "THEVADHARSHINI",
+          "Amalesh Antony M"
         ]
       }
     ]
@@ -506,7 +507,6 @@
           "AAKASHâ€¢ M.Câ€¢",
           "AJAYMADHAN. T.",
           "VISHAL- GT.",
-          "JENITO DANI",
           "MITHRA. D.",
           "BHUVANA.S. V.",
           "BOOMIKAâ€¢ Pâ€¢",
@@ -524,8 +524,7 @@
           "SREEMATHI.S",
           "SWATHI PRIVADHARSHINI.N",
           "NITHTHILAM.A.",
-          "KANISHKA",
-          "NIRMALA"
+          "KANISHKA"
         ]
       },
       {
