@@ -2,11 +2,11 @@
    DESIGN TOKENS — Dynamic Accent (overridden per team via JS)
    ============================================================ */
 :root {
-  --bg:           #2C2E39;
-  --bg-deep:      #1F212A;
-  --bg-panel:     #252730;
-  --bg-card:      #2C2E39;
-  --bg-card-dark: #232530;
+  --bg:           #111111;
+  --bg-deep:      #050505;
+  --bg-panel:     #181818;
+  --bg-card:      #1F1F1F;
+  --bg-card-dark: #141414;
 
   --ink:       #ffffff;
   --ink-muted: rgba(255, 255, 255, 0.72);
