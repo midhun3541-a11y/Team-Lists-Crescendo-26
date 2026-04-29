@@ -5,36 +5,64 @@ function updateTeamData() {
 
 const themes = {
   Stark: {
-    accent: "#7ce7ff",
-    strong: "#4dcfff",
-    soft: "rgba(124, 231, 255, 0.1)",
-    glow: "rgba(124, 231, 255, 0.2)",
-    line: "rgba(124, 231, 255, 0.28)",
-    rgb: "124, 231, 255"
+    accent: "#8faecc",
+    strong: "#b7c9da",
+    soft: "rgba(143, 174, 204, 0.1)",
+    glow: "rgba(143, 174, 204, 0.14)",
+    line: "rgba(143, 174, 204, 0.22)",
+    rgb: "143, 174, 204",
+    bgTintA: "rgba(104, 178, 235, 0.22)",
+    bgTintB: "rgba(76, 127, 182, 0.14)",
+    bgTintC: "rgba(24, 60, 103, 0.18)",
+    bgCoreTop: "#0d1a2a",
+    bgCoreMid: "#08121f",
+    bgCoreLow: "#030812",
+    bgCoreBottom: "#010207"
   },
   Targaryen: {
-    accent: "#ff4444",
-    strong: "#dd2222",
-    soft: "rgba(255, 68, 68, 0.1)",
-    glow: "rgba(255, 68, 68, 0.2)",
-    line: "rgba(255, 68, 68, 0.28)",
-    rgb: "255, 68, 68"
+    accent: "#8d4747",
+    strong: "#b26c6c",
+    soft: "rgba(141, 71, 71, 0.1)",
+    glow: "rgba(141, 71, 71, 0.14)",
+    line: "rgba(141, 71, 71, 0.22)",
+    rgb: "141, 71, 71",
+    bgTintA: "rgba(173, 46, 46, 0.24)",
+    bgTintB: "rgba(116, 22, 22, 0.16)",
+    bgTintC: "rgba(74, 16, 16, 0.18)",
+    bgCoreTop: "#1d1012",
+    bgCoreMid: "#14090b",
+    bgCoreLow: "#0c0406",
+    bgCoreBottom: "#040102"
   },
   Lannister: {
-    accent: "#f5c567",
-    strong: "#e5a93c",
-    soft: "rgba(245, 197, 103, 0.1)",
-    glow: "rgba(245, 197, 103, 0.2)",
-    line: "rgba(245, 197, 103, 0.28)",
-    rgb: "245, 197, 103"
+    accent: "#b89a5f",
+    strong: "#d4bb86",
+    soft: "rgba(184, 154, 95, 0.1)",
+    glow: "rgba(184, 154, 95, 0.14)",
+    line: "rgba(184, 154, 95, 0.22)",
+    rgb: "184, 154, 95",
+    bgTintA: "rgba(191, 138, 38, 0.24)",
+    bgTintB: "rgba(132, 86, 18, 0.16)",
+    bgTintC: "rgba(82, 52, 10, 0.18)",
+    bgCoreTop: "#1d1610",
+    bgCoreMid: "#14100a",
+    bgCoreLow: "#0b0703",
+    bgCoreBottom: "#040301"
   },
   Baratheon: {
-    accent: "#b57bee",
-    strong: "#9a5ed6",
-    soft: "rgba(181, 123, 238, 0.1)",
-    glow: "rgba(181, 123, 238, 0.2)",
-    line: "rgba(181, 123, 238, 0.28)",
-    rgb: "181, 123, 238"
+    accent: "#b49c52",
+    strong: "#d0bb78",
+    soft: "rgba(180, 156, 82, 0.1)",
+    glow: "rgba(180, 156, 82, 0.14)",
+    line: "rgba(180, 156, 82, 0.22)",
+    rgb: "180, 156, 82",
+    bgTintA: "rgba(123, 88, 189, 0.24)",
+    bgTintB: "rgba(78, 52, 130, 0.16)",
+    bgTintC: "rgba(54, 30, 97, 0.18)",
+    bgCoreTop: "#171122",
+    bgCoreMid: "#100b18",
+    bgCoreLow: "#08050e",
+    bgCoreBottom: "#030106"
   }
 };
 
@@ -164,6 +192,13 @@ function applyTheme(teamName) {
     root.style.setProperty("--accent-glow",  theme.glow);
     root.style.setProperty("--accent-line",  theme.line);
     root.style.setProperty("--accent-rgb",   theme.rgb);
+    root.style.setProperty("--bg-tint-a",    theme.bgTintA);
+    root.style.setProperty("--bg-tint-b",    theme.bgTintB);
+    root.style.setProperty("--bg-tint-c",    theme.bgTintC);
+    root.style.setProperty("--bg-core-top",  theme.bgCoreTop);
+    root.style.setProperty("--bg-core-mid",  theme.bgCoreMid);
+    root.style.setProperty("--bg-core-low",  theme.bgCoreLow);
+    root.style.setProperty("--bg-core-bottom", theme.bgCoreBottom);
   };
 
   if (!window.gsap) {
@@ -177,11 +212,17 @@ function applyTheme(teamName) {
   root.style.setProperty("--accent-soft", theme.soft);
   root.style.setProperty("--accent-glow", theme.glow);
   root.style.setProperty("--accent-rgb",  theme.rgb);
-
   activeThemeTween?.kill();
   activeThemeTween = gsap.to(root, {
     "--accent":        theme.accent,
     "--accent-strong": theme.strong,
+    "--bg-tint-a":     theme.bgTintA,
+    "--bg-tint-b":     theme.bgTintB,
+    "--bg-tint-c":     theme.bgTintC,
+    "--bg-core-top":   theme.bgCoreTop,
+    "--bg-core-mid":   theme.bgCoreMid,
+    "--bg-core-low":   theme.bgCoreLow,
+    "--bg-core-bottom": theme.bgCoreBottom,
     duration: 0.5,
     ease: "power2.inOut",
     overwrite: "auto"
