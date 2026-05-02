@@ -476,40 +476,135 @@ if (window.gsap) {
   const isMobile = window.matchMedia("(max-width: 820px)").matches;
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (!prefersReducedMotion) {
-    // Topbar slides down
-    gsap.from(topbar, {
+  // ============================================================
+  // CINEMATIC INTRO SEQUENCE
+  // ============================================================
+  function playIntroSequence() {
+    const overlay = document.getElementById("intro-overlay");
+    const introBg = overlay.querySelector(".intro-bg-image");
+    const line1 = document.getElementById("intro-line-1");
+    const line2 = document.getElementById("intro-line-2");
+    const line3 = document.getElementById("intro-line-3");
+    const appShell = document.querySelector(".app-shell");
+
+    if (prefersReducedMotion || !overlay) {
+      // Skip intro for reduced motion
+      if (overlay) overlay.style.display = "none";
+      if (appShell) {
+        appShell.classList.add("is-revealed");
+        appShell.style.opacity = "1";
+      }
+      return;
+    }
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        overlay.classList.add("is-done");
+        // Remove overlay from DOM after animation
+        setTimeout(() => overlay.remove(), 200);
+      }
+    });
+
+    // Phase 1: Background fades in from pure black
+    tl.to(introBg, {
+      opacity: 1,
+      duration: 1.6,
+      ease: "power2.inOut"
+    })
+
+    // Phase 2: "Crescendo'26" — majestic reveal
+    .to(line1, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 1.0,
+      ease: "power3.out",
+      force3D: true
+    }, "-=0.3")
+
+    // Phase 3: "Troizeantz" — elegant slide in
+    .to(line2, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.8,
+      ease: "power3.out",
+      force3D: true
+    }, "-=0.35")
+
+    // Phase 4: "Team List" — subtle appear
+    .to(line3, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.7,
+      ease: "power3.out",
+      force3D: true
+    }, "-=0.3")
+
+    // Hold for a moment to let user absorb
+    .to({}, { duration: 0.8 })
+
+    // Phase 5: Fade out all intro text
+    .to([line1, line2, line3], {
+      opacity: 0,
+      y: -20,
+      duration: 0.6,
+      ease: "power2.in",
+      stagger: 0.06,
+      force3D: true
+    })
+
+    // Phase 6: Fade out the intro overlay entirely
+    .to(overlay, {
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.inOut"
+    }, "-=0.2")
+
+    // Phase 7: Reveal the main website
+    .add(() => {
+      appShell.classList.add("is-revealed");
+    }, "-=0.5")
+    .to(appShell, {
+      opacity: 1,
+      duration: 0.6,
+      ease: "power2.out",
+      clearProps: "opacity"
+    }, "-=0.5")
+
+    // Phase 8: Stagger in the main UI elements
+    .from(topbar, {
       opacity: 0,
       y: isMobile ? -12 : -20,
       duration: isMobile ? 0.5 : 0.7,
       ease: "expo.out",
       clearProps: "all",
       force3D: true
-    });
+    }, "-=0.3")
 
-    // Team sidebar slides in
-    gsap.from(".team-panel", {
+    .from(".team-panel", {
       opacity: 0,
       x: isMobile ? 0 : -20,
       y: isMobile ? 10 : 0,
       duration: isMobile ? 0.4 : 0.6,
       ease: "expo.out",
-      delay: 0.05,
       clearProps: "all",
       force3D: true
-    });
+    }, "-=0.4")
 
-    // Details panel fades up
-    gsap.from(".details-panel", {
+    .from(".details-panel", {
       opacity: 0,
       y: isMobile ? 10 : 16,
       duration: isMobile ? 0.4 : 0.55,
       ease: "expo.out",
-      delay: 0.1,
       clearProps: "all",
       force3D: true
-    });
+    }, "-=0.35");
   }
+
+  // Start intro when page is fully loaded (images etc)
+  window.addEventListener("load", playIntroSequence);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
